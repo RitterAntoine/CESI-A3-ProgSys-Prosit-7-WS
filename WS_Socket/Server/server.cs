@@ -18,7 +18,7 @@ class Server
     private static Socket SeConnecter()
     {
         Console.OutputEncoding = Encoding.UTF8;
-        IPEndPoint ipep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 46154);
+        IPEndPoint ipep = new IPEndPoint(IPAddress.Parse("0.0.0.0"), 46154);
         Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         socket.Bind(ipep);
         socket.Listen(10);
@@ -36,11 +36,23 @@ class Server
 
     private static void EcouterReseau(Socket client)
     {
-        byte[] data = new byte[1024];
-        int size = client.Receive(data);
-        string message = Encoding.UTF8.GetString(data, 0, size);
-        Console.WriteLine("Message reçu = " + message);
+        try
+        {
+            string urlToSend = "https://github.com/RitterAntoine/CESI-A3-ProgSys-Prosit-7-WS";
+            byte[] data = Encoding.UTF8.GetBytes(urlToSend);
+            client.Send(data);
+
+            Console.WriteLine("URL envoyée au client : " + urlToSend);
+
+            // Ajouter une attente pour maintenir la connexion ouverte pendant un certain temps
+            System.Threading.Thread.Sleep(5000);  // Attendez 5 secondes (ajustez selon vos besoins)
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Erreur lors de l'envoi de l'URL : " + ex.Message);
+        }
     }
+
 
     private static void Deconnecter(Socket socket)
     {
