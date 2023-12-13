@@ -45,7 +45,7 @@ class Server
             Console.WriteLine("URL envoyée au client : " + urlToSend);
 
             // Ajouter une attente pour maintenir la connexion ouverte pendant un certain temps
-            System.Threading.Thread.Sleep(5000);  // Attendez 5 secondes (ajustez selon vos besoins)
+            System.Threading.Thread.Sleep(5000);
         }
         catch (Exception ex)
         {
@@ -56,6 +56,7 @@ class Server
 
     private static void Deconnecter(Socket socket)
     {
+        socket.Shutdown(SocketShutdown.Both);
         socket.Close();
     }
 }
