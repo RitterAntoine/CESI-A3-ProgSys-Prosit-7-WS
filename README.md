@@ -23,6 +23,7 @@ Le projet est divisé en deux parties principales : le serveur (`Server`) et le 
 - Le serveur attend une connexion cliente et affiche les informations relatives à cette connexion.
 - Le client se connecte au serveur et envoie un message au serveur.
 - Le serveur reçoit le message du client et l'affiche.
+- Le serveur envoie une URL au client, qui lance le navigateur avec l'URL spécifiée.
 
 ## Configuration
 
